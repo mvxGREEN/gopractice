@@ -8,7 +8,7 @@ import (
 
 func main() {
   http.HandleFunc("/", handler)
-  log.Fatal(http.ListenAndServe("localhost:8000", nil))
+  log.Fatal(http.ListenAndServe("192.168.1.16:80", nil))
 }
 
 func handler(w http.ResponseWriter, r *http.Request) {
