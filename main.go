@@ -2,14 +2,15 @@ package main
 
 import (
   "fmt"
-  "os"
+  "log"
+  "net/http"
 )
 
 func main() {
-  var s, sep string
-  for i := 1; i < len(os.Args); i++ {
-    s += sep + os.Args[i]
-    sep = " "
-  }
-  fmt.Println(s)
+  http.HandleFunc("/", handler)
+  log.Fatal(http.ListenAndServe("localhost:8000", nil))
+}
+
+func handler(w http.ResponseWriter, r *http.Request) {
+  fmt.Fprintf(w, "URL.Path = %q\n", r.URL.Path)
 }
