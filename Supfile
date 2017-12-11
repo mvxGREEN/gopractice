@@ -1,0 +1,39 @@
+---
+version: 0.4
+
+networks:
+    production:
+      hosts:
+        - ubuntu@18.216.66.246
+
+env:
+  PACKAGE: gopractice
+  GIT_BRANCH: master
+  GITHUB_PACKAGE: git@github.com:xxxgreen/$PACKAGE
+  PACKAGE_DIR: github.com/xxxgreen/$PACKAGE
+  USER: ubuntu
+  APP_DIR: /home/$USER/apps/$PACKAGE
+  GOROOT: /usr/local/go
+  PATH: "$PATH:$GOROOT/bin"
+
+commands:
+  deploy:
+    desc: Create required folder structure for the release
+    run: |
+      export RC=$(find $APP_DIR/releases/ -mindepth 1 -maxdepth 1 -type d \( ! -regex '.*/\..*' \) | wc -l);
+      export NEW_RC="$(($RC + 1))"
+      export RELEASE_DIR=$APP_DIR/releases/$NEW_RC
+      export GOPATH=$RELEASE_DIR
+      mkdir -p $GOPATH/src/$PACKAGE_DIR
+      cd $GOPATH/src/$PACKAGE_DIR
+      git clone $GITHUB_PACKAGE .
+      git checkout $GIT_BRANCH
+      dep ensure
+      dep status
+      go build -o $PACKAGE .
+      touch $APP_DIR/current
+      rm $APP_DIR/current
+      ln -s $GOPATH/src/$PACKAGE_DIR/ $APP_DIR/current
+      sudo cp landing.service /etc/systemd/system/gopractice.service
+      sudo systemctl daemon-reload
+      sudo systemctl restart gopractice
