@@ -34,6 +34,6 @@ commands:
       touch $APP_DIR/current
       rm $APP_DIR/current
       ln -s $GOPATH/src/$PACKAGE_DIR/ $APP_DIR/current
-      sudo cp landing.service /etc/systemd/system/gopractice.service
+      sudo cp gopractice.service /etc/systemd/system/gopractice.service
       sudo systemctl daemon-reload
       sudo systemctl restart gopractice
