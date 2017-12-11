@@ -1,0 +1,13 @@
+[Unit]
+Description=gopractice systemd service
+
+[Service]
+EnvironmentFile=/home/ubuntu/apps/gopractice/current/.env
+User=root
+Group=root
+WorkingDirectory=/home/ubuntu/apps/gopractice/current
+ExecStart=/home/ubuntu/apps/gopractice/current/gopractice
+ExecStop=/bin/kill $MAINPID
+
+[Install]
+WantedBy=multi-user.target
