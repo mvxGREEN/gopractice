@@ -4,7 +4,10 @@ version: 0.4
 networks:
     production:
       hosts:
-        - ubuntu@18.216.66.246
+        - ubuntu@18.217.227.58
+    staging:
+      hosts:
+        - ubuntu@18.221.246.168
 
 env:
   PACKAGE: gopractice
@@ -20,6 +23,7 @@ commands:
   deploy:
     desc: Create required folder structure for the release
     run: |
+      mkdir -p $APP_DIR/releases
       export RC=$(find $APP_DIR/releases/ -mindepth 1 -maxdepth 1 -type d \( ! -regex '.*/\..*' \) | wc -l);
       export NEW_RC="$(($RC + 1))"
       export RELEASE_DIR=$APP_DIR/releases/$NEW_RC

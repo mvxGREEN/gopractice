@@ -38,6 +38,10 @@ func main() {
 
 	e.Static("/", "public")
 	e.GET("/", Index)
+  e.GET("/wow", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Hello, World!")
+	})
+
 
   e.Logger.Fatal(e.Start(":4000"))
 }
