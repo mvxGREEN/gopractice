@@ -38,10 +38,10 @@ func main() {
 
 	e.Static("/", "public")
 	e.GET("/", Index)
-  e.GET("/wow", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Goodbye, World!")
+  e.GET("/soundcloud", func(c echo.Context) error {
+		return c.String(http.StatusOK, "Hello, Soundcloud!")
 	})
 
 
-  e.Logger.Fatal(e.Start(":4000"))
+  e.Logger.Fatal(e.Start(":80"))
 }
