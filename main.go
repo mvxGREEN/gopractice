@@ -25,6 +25,10 @@ func Index(c echo.Context) error {
 	return c.Render(http.StatusOK, "layout", &IndexData{Host: c.Request().Host, EscapedMessageVar: "{{message}}"})
 }
 
+func Soundcloud(c echo.Context) error {
+	return c.String(http.StatusOK, "Hello, Soundcloud!")
+}
+
 func main() {
   e := echo.New()
 
@@ -34,14 +38,15 @@ func main() {
   t := &Template{
 		templates: template.Must(template.ParseFiles("views/layout.html", "views/styles.html", "views/content.html")),
 	}
+  sc := &Template{
+    templates: template.Must(template.ParseFiles("views/layout.html", "views/styles.html", "views/sc_content.html"))
+  }
   e.Renderer = t
 
 	e.Static("/", "public")
 	e.GET("/", Index)
-  e.GET("/soundcloud", func(c echo.Context) error {
-		return c.String(http.StatusOK, "Hello, Soundcloud!")
-	})
+  e.GET("/soundcloud", Soundcloud)
 
 
-  e.Logger.Fatal(e.Start(":80"))
+  e.Logger.Fatal(e.Start(":4000"))
 }
