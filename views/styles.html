@@ -33,5 +33,32 @@
     padding-top: 15px;
   }
 
+  <style amp-custom>
+
+  .scrollToTop {
+    color: #fafafa;
+    font-size: 1.4em;
+    box-shadow: 0 1px 1.5px 0 rgba(0,0,0,.12), 0 1px 1px 0 rgba(0,0,0,.24);
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    border: none;
+    outline: none;
+    background: #E91E63;
+    z-index: 9999;
+    bottom: 10px;
+    right: 10px;
+    position: fixed;
+    opacity: 0;
+    visibility: hidden;
+  }
+  #marker {
+    position: absolute;
+    top: 100px;
+    width: 0px;
+    height: 0px;
+  }
+</style>
+
 </style>
 {{ end }}
