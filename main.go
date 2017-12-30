@@ -40,5 +40,5 @@ func main() {
 	e.Static("/", "public")
 	e.GET("/", Index)
 
-  e.Logger.Fatal(e.Start(":4000"))
+  e.Logger.Fatal(e.Start(":80"))
 }
